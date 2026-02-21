@@ -11,6 +11,7 @@ spider1 = Actor("spider1", size=spider_size)
 spider_start = (spider.x, spider.y)
 masae = Actor("masae", size=(100, 100))
 portaal = Actor("portal", size=(100, 100))
+atest = Actor("atest", size=(100, 100))
 map2 = [[0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [1, 1, 1, 1, 1, 1, 1, 7],
@@ -28,11 +29,14 @@ map = [[0, 0, 0, 0, 0, 0, 0, 0],
        [0, 1, 1, 0, 0, 1, 1, 0,0,0,0],
        [0, 0, 0, 0, 0, 0, 0, 0]]
 zmne = Actor("zemin_doku", size=(800,600))
+eddf = Actor("ejder", size=(100, 100))
 WIDTH = 1000
 HEIGHT = 600
 mode = "start"
 ghhh = Actor("ssr")
+atestyy = True
 def draw():
+    global atestyy
     global ggr
     global i,j
     global mode
@@ -58,8 +62,11 @@ def draw():
         
         for o in range(8):
             for t in range(8):
-                ""
-                    
+                if map2[o][t] == 7:
+                    if atestyy == True:
+                        atest.pos = (t * 100 + 50, o * 100 + 50)
+                        atestyy = False
+                    atest.draw()
                     
         if ggr == True:            
             spider1.pos = (spider_start)
@@ -67,12 +74,16 @@ def draw():
         spider1.draw()
                     
 def update():
+    global atestyy
     global mode
     i = int(spider.y // 100)
     j = int(spider.x // 100)
     if mode == "level2":
-        if  spider.colliderect(portaal) and map2[i][j] == 0:
-            mode = "level3"
+        atest.x -= 10
+    if atest.x < 50:
+        atestyy = True
+            
+        
     if mode == "level1":
         if  spider.colliderect(portal) and map[i][j] == 3:
             mode = "level2"
